@@ -66,4 +66,4 @@ Select option: 0
 Process finished with exit code 0
 ```
 
-Look in test.py for a better example implementation of the library.
+Look in tests/menu_test.py for a better example implementation of the library.
