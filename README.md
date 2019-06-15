@@ -1,7 +1,7 @@
 # Python Console Menu
 ![license](https://img.shields.io/hexpm/l/plug.svg)
 
-This library provides a way to quickly create the menu for your python console app.
+This library provides a way to quickly create the menu for your Python console app.
 
 ##  Overview
 
@@ -9,18 +9,18 @@ This library provides a way to quickly create the menu for your python console a
 
 #### AbstractMenu
 This is the abstract class you need to extend in your menus.
-It's constructor takes in a title which is displayed at the top of the menu. This should be called from your implementations constructor. Like so:
+Its constructor takes in a title which is displayed at the top of the menu. This should be called from your implementation's constructor. Like so:
 ```pythonstub
 class MenuImplementation(AbstractMenu):
     def __init__(self):
         super().__init__("Menu Title")
 ```
 ##### Methods
-- `initialise()` this needs overridding in your implementations and is where you add the items to the menu.
+- `initialise()` this needs overriding in your implementations and is where you add the items to the menu.
 - `display()` this starts this menu. This only needs to be called on the root menu in your system, as all sub-menus are handled by this library.
 - `add_menu_item(MenuItem(id, description, subMenu or action))` this adds an item to the menu. 
 - `add_hidden_menu_item(new MenuItem(id, description, subMenu or action))` this is a helper method that adds a menu item, which is then hidden.
-- `update_menu_items()` this can be overriden per menu to update items based on changes to your application, such as showing hidden menu items if they're now needed.
+- `update_menu_items()` this can be overridden per menu to update items based on changes to your application, such as showing hidden menu items if they're now needed.
 - `show_menu_item(id)` this can be used to show hidden menu items, most commonly in the method above. This uses the unique id given to the menu item.
 - `hide_menu_item(id)` this can be used to hide menu items.
 
@@ -66,4 +66,4 @@ Select option: 0
 Process finished with exit code 0
 ```
 
-Look in tests/menu_test.py for a better example implementation of the library.
+Look in demo/menu_demo.py for a better example implementation of the library.
