@@ -1,4 +1,5 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
+
 
 class OperationError(Exception):
     def __init__(self):
@@ -11,17 +12,17 @@ class AbstractMenu(ABC):
         self.menu_items = []
         self.initialise()
 
-    @abstractclassmethod
+    @abstractmethod
     def initialise(self):
-        return
+        pass
 
-    def update_menu_itmes(self):
-        return
+    def update_menu_items(self):
+        pass
 
     def display(self):
-        repeat = True
+        repeat: bool = True
         while repeat:
-            self.update_menu_itmes()
+            self.update_menu_items()
             print()
             print(self.title)
             for i in range(0, len(self.menu_items)):
@@ -45,16 +46,16 @@ class AbstractMenu(ABC):
                 print("Invalid option. Option at {0} is hidden.".format(inp))
                 repeat = True
 
-    def add_menu_item(self, menu_item):
+    def add_menu_item(self, menu_item: 'MenuItem'):
         if not self.menu_items.__contains__(menu_item):
             self.menu_items.append(menu_item)
         else:
             raise ValueError("Menu item with id {0} already exists!.".format(menu_item.id))
 
-    def add_hidden_menu_item(self, menu_item):
+    def add_hidden_menu_item(self, menu_item: 'MenuItem'):
         self.add_menu_item(menu_item.hide())
 
-    def show_menu_item(self, item_id):
+    def show_menu_item(self, item_id: int):
         try:
             menu_item = MenuItem(item_id)
             index = self.menu_items.index(menu_item)
@@ -62,7 +63,7 @@ class AbstractMenu(ABC):
         except ValueError:
             print("Error showing menu item. Menu item with ID {0} hasn't been added to this menu.".format(item_id))
 
-    def hide_menu_item(self, item_id):
+    def hide_menu_item(self, item_id: int):
         try:
             menu_item = MenuItem(item_id)
             index = self.menu_items.index(menu_item)
@@ -72,27 +73,27 @@ class AbstractMenu(ABC):
 
 
 class MenuItem:
-    def __init__(self, id: int, description: str = "", action: callable(None) = None, menu = None):
-        self.id = id
-        self.description = description
+    def __init__(self, id: int, description: str = "", action: callable(None) = None, menu: AbstractMenu = None):
+        self.id: int = id
+        self.description: str = description
         self.action = action
-        self.menu = menu
-        self.isExitOption = False
-        self.isVisible = True
+        self.menu: AbstractMenu = menu
+        self.isExitOption: bool = False
+        self.isVisible: bool = True
 
-    def hide(self):
+    def hide(self) -> 'MenuItem':
         self.isVisible = False
         return self
 
-    def show(self):
+    def show(self) -> 'MenuItem':
         self.isVisible = True
         return self
 
-    def set_as_exit_option(self):
+    def set_as_exit_option(self) -> 'MenuItem':
         self.isExitOption = True
         return self
 
-    def run(self):
+    def run(self) -> bool:
         if self.action is not None:
             self.action()
         elif self.menu is not None:
