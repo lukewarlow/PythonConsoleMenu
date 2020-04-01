@@ -19,6 +19,12 @@ class AbstractMenu(ABC):
     def update_menu_items(self):
         pass
 
+    def item_text(self, item: 'MenuItem'):
+        return "%s" % item.description
+
+    def item_line(self, index: int, item: 'MenuItem'):
+        return "%s. %s" % (index, self.item_text(item))
+
     def display(self):
         repeat: bool = True
         while repeat:
@@ -27,7 +33,7 @@ class AbstractMenu(ABC):
             print(self.title)
             for i in range(0, len(self.menu_items)):
                 if self.menu_items[i].isVisible:
-                    print(str(i) + ". " + self.menu_items[i].description)
+                    print(self.item_line(i, self.menu_items[i]))
 
             inp = input("Select Option: ")
             try:
