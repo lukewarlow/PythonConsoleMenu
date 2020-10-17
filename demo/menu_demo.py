@@ -30,6 +30,12 @@ class DemoMenu(AbstractMenu):
         if self.show_hidden_menu:
             self.show_menu_item(3)
 
+    def item_text(self, item: 'MenuItem'):
+        return "%30s" % item.description
+
+    def item_line(self, index: int, item: 'MenuItem'):
+        return "%d: %s" % (index, self.item_text(item))
+
 
 demoMenu = DemoMenu()
 demoMenu.display()
